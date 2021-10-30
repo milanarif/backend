@@ -8,11 +8,12 @@ class UserRepository {
         return this.dao.run(`CREATE TABLE user (userId INTEGER PRIMARY KEY, userName TEXT, password TEXT, email TEXT)`);
     }
 
-    create(userName, password, email) {
-        return this.dao.run(
+    async create(userName, password, email) {
+        let newUser = await this.dao.run(
           `INSERT INTO user (userName, password, email)
             VALUES (?, ?, ?)`,
-          [userName, password, email])
+          [userName, password, email]);
+        return newUser.id;
     }
 
     delete(id) {
@@ -22,10 +23,10 @@ class UserRepository {
         )
     }
     
-    async getById(id) {
+    async get(id) {
       let user = await this.dao.get(
         `SELECT * FROM user WHERE userId = ?`,
-        [id])
+        [id]);
       return user;
     }
 
