@@ -3,10 +3,9 @@ const db = require('../database/database')
 
 async function getId(id) {
     let sql = "select * from user where userId = " + id;
-    db.get(sql, (err, row) => {
+    const user = db.get(sql, async (err, row) => {
         if (err) {
             return err.message;
-
         }
         if (row == null) {
             return "UNABLE"
@@ -17,4 +16,5 @@ async function getId(id) {
     });
 }
 
-exports.getId = getId;
+
+module.exports = {getId}

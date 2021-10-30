@@ -8,9 +8,9 @@ const router = express.Router();
 router.get("/:id", async (req, res, next) => {
     // CALL SERVICE THAT CALLS DAO AND RESPONDS BACK UP THE CHAIN
     let params = req.params.id;
-    console.log("1");
-    res = await UserService.getId(params)
-    return res.json;
+    // res = UserService.getId(params)
+    user = await UserService.getId(params)
+    res.send(this.user)
 });
 
 // Add User
