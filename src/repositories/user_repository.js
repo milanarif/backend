@@ -4,28 +4,28 @@ class UserRepository {
     }
 
     createTable() {
-        const sql = `CREATE TABLE user (userId INTEGER PRIMARY KEY, userName TEXT, password TEXT, email TEXT)`
-        return this.dao.run(`CREATE TABLE user (userId INTEGER PRIMARY KEY, userName TEXT, password TEXT, email TEXT)`);
+        const sql = `CREATE TABLE user (id INTEGER PRIMARY KEY, username TEXT, password TEXT, email TEXT)`
+        return this.dao.run(`CREATE TABLE user (id INTEGER PRIMARY KEY, username TEXT, password TEXT, email TEXT)`);
     }
 
-    async create(userName, password, email) {
+    async create(username, password, email) {
         let newUser = await this.dao.run(
-          `INSERT INTO user (userName, password, email)
+          `INSERT INTO user (username, password, email)
             VALUES (?, ?, ?)`,
-          [userName, password, email]);
+          [username, password, email]);
         return newUser.id;
     }
 
-    delete(id) {
+    async delete(id) {
+      console.log(id);
         return this.dao.run(
-          `DELETE FROM user WHERE userId = ?`,
-          [id]
-        )
+          `DELETE FROM user WHERE id = ?`,
+          [id]);
     }
     
     async get(id) {
       let user = await this.dao.get(
-        `SELECT * FROM user WHERE userId = ?`,
+        `SELECT * FROM user WHERE id = ?`,
         [id]);
       return user;
     }

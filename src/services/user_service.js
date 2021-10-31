@@ -11,9 +11,21 @@ async function getUserById(id) {
 }
 
 async function addUser(username, email, password) {
-    let userId = await userRepo.create(username, email, password);
-    let new_user = await userRepo.get(userId);
+    let id = await userRepo.create(username, email, password);
+    let new_user = await userRepo.get(id);
     return new_user;
 }
 
-module.exports = {getUserById, addUser}
+async function deleteUser(id) {
+    let user = await userRepo.get(id);
+    if (!user) {
+        return null
+    }
+    else {
+        await userRepo.delete(user.id);
+        return user;
+    }
+
+}
+
+module.exports = {getUserById, addUser, deleteUser}

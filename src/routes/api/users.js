@@ -7,25 +7,44 @@ const router = express.Router();
 // Get ID
 router.get("/:id", async (req, res, next) => {
     let user = await UserService.getUserById(req.params.id);
-    res.send(user);
+    if (!user) {
+        res.status(404).send("Id Not Found")
+    }
+    else {
+        res.send(user);
+    }
 });
 
 router.post("/", async (req, res, next) => {
-    let errors=[]
+    let errors=[];
     if (!req.body.username) {
-        errors.push("No Username")
+        errors.push("No Username");
     } if(!req.body.email) {
-        errors.push("No Email")
+        errors.push("No Email");
     } if (!req.body.password) {
-        errors.push("No Password")
+        errors.push("No Password");
     }
     if (errors.length != 0) {
-        res.status(400).json({errors})
+        res.status(400).json({errors});
     }
     else {
-        let response = await UserService.addUser(req.body.username, req.body.email, req.body.password)
-        res.send(response)
+        let newUser = await UserService.addUser(req.body.username, req.body.email, req.body.password);
+        res.send(newUser);
     }
 });
+
+router.delete("/", async (req, res, next) => {
+    let errors=[];
+    if (!req.body.id) {
+        res.status(400).json("No Id");
+    }
+    else {
+        let deletedUser = await UserService.deleteUser(req.body.id);
+        if (deletedUser == null) {
+            res.status(404).send("Id not found")
+        }
+        res.send(deletedUser);
+    }
+})
 
 module.exports = router;

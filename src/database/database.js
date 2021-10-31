@@ -9,13 +9,13 @@ class AppDao {
             }
             else {
                 console.log('Connected to database');
-                this.db.run(`CREATE TABLE user (userId INTEGER PRIMARY KEY, userName TEXT, password TEXT, email TEXT)`, (err) => {
+                this.db.run(`CREATE TABLE user (id INTEGER PRIMARY KEY, username TEXT, password TEXT, email TEXT)`, (err) => {
                     if (err) {
                         // Table already created
                         console.log('Schema Exists');
                     } else {
                         console.log('New Schema');
-                        let insert = 'INSERT INTO user (userName, password, email) VALUES (?,?,?)'
+                        let insert = 'INSERT INTO user (username, password, email) VALUES (?,?,?)'
                         this.db.run(insert, ["Adam Adamsson","adamadam123","adam@adamsson.se"])
                         this.db.run(insert, ["Bertil Bertilsson","bertilbertil123","bertil@bertilsson.se"])
                         this.db.run(insert, ["David Davidsson","daviddavid123","david@davidsson.se"])
