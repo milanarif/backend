@@ -47,4 +47,20 @@ router.delete("/", async (req, res, next) => {
     }
 })
 
+router.post("/verify", async (req, res, next) => {
+    let errors = [];
+    if (!req.body.id) {
+        errors.push("No Id");
+    }
+    if (!req.body.password) {
+        errors.push("No Password");
+    }
+    if (errors.length != 0) {
+        res.status(400).json({errors});
+    }
+    else {
+        res.send(await UserService.verifyPassword(req.body.id, req.body.password));
+    }
+})
+
 module.exports = router;
