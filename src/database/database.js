@@ -1,5 +1,6 @@
 const sqlite3 = require('sqlite3').verbose()
 const Promise = require('bluebird');
+const bcrypt = require('bcrypt');
 
 class AppDao {
     constructor(DBSOURCE) {
@@ -16,9 +17,9 @@ class AppDao {
                     } else {
                         console.log('New Schema');
                         let insert = 'INSERT INTO user (username, password, email) VALUES (?,?,?)'
-                        this.db.run(insert, ["Adam Adamsson","adamadam123","adam@adamsson.se"])
-                        this.db.run(insert, ["Bertil Bertilsson","bertilbertil123","bertil@bertilsson.se"])
-                        this.db.run(insert, ["David Davidsson","daviddavid123","david@davidsson.se"])
+                        this.db.run(insert, ["Adam Adamsson", bcrypt.hashSync('adamadam123', 11), "adam@adamsson.se"])
+                        this.db.run(insert, ["Bertil Bertilsson", bcrypt.hashSync('bertilbertil123', 11), "bertil@bertilsson.se"])
+                        this.db.run(insert, ["David Davidsson", bcrypt.hashSync('daviddavid123', 11), "david@davidsson.se"])
                     }
                 });
             }

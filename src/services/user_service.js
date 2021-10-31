@@ -33,7 +33,12 @@ async function deleteUser(id) {
 
 async function verifyPassword(id, password) {
     let user = await getUserById(id);
-    return bcrypt.compareSync(password, user.password);
+    if (!user) {
+        return false;
+    }
+    else {
+        return bcrypt.compareSync(password, user.password);
+    }
 }
 
 module.exports = {getUserById, addUser, deleteUser, verifyPassword}
