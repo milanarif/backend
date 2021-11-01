@@ -10,13 +10,13 @@ class AppDao {
             }
             else {
                 console.log('Connected to database');
-                this.db.run(`CREATE TABLE user (id INTEGER PRIMARY KEY, username TEXT, password TEXT, email TEXT)`, (err) => {
+                this.db.run(`CREATE TABLE user (id INTEGER PRIMARY KEY, name TEXT, password TEXT, email TEXT)`, (err) => {
                     if (err) {
                         // Table already created
                         console.log('Schema Exists');
                     } else {
                         console.log('New Schema');
-                        let insert = 'INSERT INTO user (username, password, email) VALUES (?,?,?)'
+                        let insert = 'INSERT INTO user (name, password, email) VALUES (?,?,?)'
                         this.db.run(insert, ["Adam Adamsson", bcrypt.hashSync('adamadam123', 11), "adam@adamsson.se"])
                         this.db.run(insert, ["Bertil Bertilsson", bcrypt.hashSync('bertilbertil123', 11), "bertil@bertilsson.se"])
                         this.db.run(insert, ["David Davidsson", bcrypt.hashSync('daviddavid123', 11), "david@davidsson.se"])

@@ -6,10 +6,17 @@ POST http://localhost:3000/api/users/ HTTP/1.1
 content-type: application/json
 
 {
-    "username":"Milan Arif",
+    "name":"Milan Arif",
     "email": "milan@arif.com",
     "password": "qwerty123"
 }
 
 ###
 
+POST http://localhost:3000/api/users/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "email":"adam@adamsson.se",
+    "password":"adamadam123"
+}
