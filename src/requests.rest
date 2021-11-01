@@ -1,0 +1,15 @@
+GET http://localhost:3000/api/users/1
+
+###
+
+POST http://localhost:3000/api/users/ HTTP/1.1
+content-type: application/json
+
+{
+    "username":"Milan Arif",
+    "email": "milan@arif.com",
+    "password": "qwerty123"
+}
+
+###
+
