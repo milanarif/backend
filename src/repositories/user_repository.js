@@ -40,7 +40,11 @@ class UserRepository {
       let user = await this.dao.get(
         `SELECT password FROM user WHERE email = ?`,
         [email]);
-      return user.password;
+        if (user) {
+          return user.password;
+        }
+        else return null;
+      
     }
 
     getAll() {
